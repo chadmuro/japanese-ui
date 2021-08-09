@@ -1,20 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import { CssBaseline } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from './Header';
 import Footer from './Footer';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	root: {
 		display: 'flex',
 		flexDirection: 'column',
 		height: '100vh',
+		backgroundColor: theme.palette.background.paper,
+		color: theme.palette.common.white,
 	},
 	main: {
 		flex: 1,
 	},
-});
-
+}));
 const Layout = ({ children }) => {
 	const classes = useStyles();
 
