@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	return (
 		<AppBar position="static" color="inherit" elevation={0}>
@@ -39,9 +41,15 @@ const Header = () => {
 					</Typography>
 				</div>
 				<nav className={classes.nav}>
-					<Link color="primary">Home</Link>
-					<Link color="primary">Vocabulary</Link>
-					<Link color="primary">Categories</Link>
+					<Link color="primary" onClick={() => history.push('/')}>
+						Home
+					</Link>
+					<Link color="primary" onClick={() => history.push('/vocabulary')}>
+						Vocabulary
+					</Link>
+					<Link color="primary" onClick={() => history.push('/category')}>
+						Categories
+					</Link>
 				</nav>
 				<div className={classes.buttonWrap}>
 					<Button color="secondary" variant="outlined">
