@@ -4,6 +4,9 @@ import yellow from '@material-ui/core/colors/yellow';
 import cyan from '@material-ui/core/colors/cyan';
 
 export const theme = createTheme({
+	typography: {
+		fontFamily: 'Quantico, sans-serif',
+	},
 	palette: {
 		background: {
 			paper: blueGrey[900],

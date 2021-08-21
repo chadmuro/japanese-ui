@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 		flex: 1,
 	},
 }));
+
 const Layout = ({ children }) => {
 	const classes = useStyles();
 
