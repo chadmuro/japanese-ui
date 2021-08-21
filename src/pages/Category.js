@@ -40,7 +40,7 @@ const Category = () => {
 
 	useEffect(() => {
 		dispatch(getCategories());
-	}, []);
+	}, [dispatch]);
 
 	const onSubmit = data => {
 		dispatch(postCategory(data.name));
