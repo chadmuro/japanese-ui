@@ -6,17 +6,12 @@ import Button from '@material-ui/core/Button';
 import Layout from '../components/Layout/Layout';
 
 const useStyles = makeStyles(theme => ({
-	main: {
-		display: 'flex',
-		height: '100%',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	title: {
 		textAlign: 'center',
+		paddingTop: theme.spacing(4),
 	},
 	form: {
+		paddingTop: theme.spacing(4),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -37,19 +32,17 @@ const Home = () => {
 
 	return (
 		<Layout>
-			<div className={classes.main}>
-				<Typography component="h2" variant="h4" className={classes.title}>
-					Daily Japanese vocabulary and phrases for developers.
-				</Typography>
-				<form onSubmit={onSubmit} className={classes.form}>
-					<TextField variant="outlined" label="Japanese" autoFocus />
-					<TextField variant="outlined" label="Reading" />
-					<TextField variant="outlined" label="English" />
-					<Button type="submit" color="primary" variant="contained">
-						Submit
-					</Button>
-				</form>
-			</div>
+			<Typography component="h2" variant="h4" className={classes.title}>
+				Useful Japanese vocabulary and phrases for developers.
+			</Typography>
+			<form onSubmit={onSubmit} className={classes.form}>
+				<TextField variant="outlined" label="Japanese" autoFocus />
+				<TextField variant="outlined" label="Reading" />
+				<TextField variant="outlined" label="English" />
+				<Button type="submit" color="primary" variant="contained">
+					Submit
+				</Button>
+			</form>
 		</Layout>
 	);
 };
