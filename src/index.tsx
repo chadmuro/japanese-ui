@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import App from './App';
 import { theme } from './styles/theme';
-import { store } from './store/store';
+import store from './store/store';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 
