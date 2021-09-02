@@ -74,26 +74,22 @@ export const categorySlice = createSlice({
 				if (payload) {
 					state.error = payload.message as string;
 				}
+			})
+			.addCase(postCategory.pending, state => {
+				state.posting = true;
+				state.error = null;
+			})
+			.addCase(postCategory.fulfilled, state => {
+				state.posting = false;
+				state.posted = true;
+				state.error = null;
+			})
+			.addCase(postCategory.rejected, (state, { payload }) => {
+				state.posting = false;
+				if (payload) {
+					state.error = payload.message as string;
+				}
 			});
-		// .addCase(postCategory.pending, (state, _action) => {
-		// 	return {
-		// 		posting: true,
-		// 		error: null,
-		// 	};
-		// })
-		// .addCase(postCategory.fulfilled, (state, _action) => {
-		// 	return {
-		// 		posting: false,
-		// 		posted: true,
-		// 		error: null,
-		// 	};
-		// })
-		// .addCase(postCategory.rejected, (state, { payload }) => {
-		// 	return {
-		// 		posting: false,
-		// 		error: payload,
-		// 	};
-		// });
 	},
 });
 

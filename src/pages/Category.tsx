@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +9,6 @@ import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import Layout from '../components/Layout/Layout';
 import { getCategories, postCategory } from '../store/slices/categorySlice';
-import { RootState } from '../store/store';
 
 const useStyles = makeStyles(theme => ({
 	title: {
@@ -38,9 +37,9 @@ interface FormValues {
 const Category = () => {
 	const classes = useStyles();
 	const { handleSubmit, control } = useForm();
-	const dispatch = useDispatch();
-	const { categories, fetching, error } = useSelector(
-		(state: RootState) => state.category
+	const dispatch = useAppDispatch();
+	const { categories, fetching, error } = useAppSelector(
+		state => state.category
 	);
 
 	console.log(categories, fetching, error);
