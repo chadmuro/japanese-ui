@@ -4,13 +4,13 @@ import Vocabulary from './pages/Vocabulary';
 import Category from './pages/Category';
 
 function Routes() {
-	return (
-		<Switch>
-			<Route path="/category" component={Category} />
-			<Route path="/vocabulary" component={Vocabulary} />
-			<Route path="/" component={Home} />
-		</Switch>
-	);
+  return (
+    <Switch>
+      <Route path="/category" component={Category} />
+      <Route path="/vocabulary" component={Vocabulary} />
+      <Route path="/" component={Home} />
+    </Switch>
+  );
 }
 
 export default Routes;
