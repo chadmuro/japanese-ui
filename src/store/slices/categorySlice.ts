@@ -1,11 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { config } from '../../constants/config';
-
-export type Category = {
-  _id: string;
-  name: string;
-};
+import { Category } from '../../constants/types';
 
 export const getCategories = createAsyncThunk<
   Category[],
@@ -16,7 +12,7 @@ export const getCategories = createAsyncThunk<
     const response: { data: Category[] } = await axios.get(
       `${config.url.API_URL}/category`
     );
-    return response.data as Category[];
+    return response.data;
   } catch (err: any) {
     console.log(err.message);
     return thunkApi.rejectWithValue({ message: err.message });
@@ -72,7 +68,7 @@ export const categorySlice = createSlice({
       .addCase(getCategories.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
-          state.error = payload.message as string;
+          state.error = payload.message;
         }
       })
       .addCase(postCategory.pending, state => {
@@ -87,7 +83,7 @@ export const categorySlice = createSlice({
       .addCase(postCategory.rejected, (state, { payload }) => {
         state.posting = false;
         if (payload) {
-          state.error = payload.message as string;
+          state.error = payload.message;
         }
       });
   },

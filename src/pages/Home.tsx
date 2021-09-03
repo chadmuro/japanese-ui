@@ -32,19 +32,17 @@ const Home = () => {
 
   return (
     <Layout>
-      <>
-        <Typography component="h2" variant="h4" className={classes.title}>
-          Useful Japanese vocabulary and phrases for developers.
-        </Typography>
-        <form onSubmit={onSubmit} className={classes.form}>
-          <TextField variant="outlined" label="Japanese" autoFocus />
-          <TextField variant="outlined" label="Reading" />
-          <TextField variant="outlined" label="English" />
-          <Button type="submit" color="primary" variant="contained">
-            Submit
-          </Button>
-        </form>
-      </>
+      <Typography component="h2" variant="h4" className={classes.title}>
+        Useful Japanese vocabulary and phrases for developers.
+      </Typography>
+      <form onSubmit={onSubmit} className={classes.form}>
+        <TextField variant="outlined" label="Japanese" autoFocus />
+        <TextField variant="outlined" label="Reading" />
+        <TextField variant="outlined" label="English" />
+        <Button type="submit" color="primary" variant="contained">
+          Submit
+        </Button>
+      </form>
     </Layout>
   );
 };
