@@ -9,11 +9,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.common.white,
   },
   main: {
     flex: 1,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 

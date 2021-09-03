@@ -9,14 +9,18 @@ const useStyles = makeStyles(theme => ({
   title: {
     textAlign: 'center',
     paddingTop: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.typography.h6.fontSize,
+    },
   },
   form: {
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 2, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
+    maxWidth: '500px',
     '& > *': {
-      width: '500px',
       margin: theme.spacing(1),
     },
   },
@@ -36,10 +40,10 @@ const Home = () => {
         Useful Japanese vocabulary and phrases for developers.
       </Typography>
       <form onSubmit={onSubmit} className={classes.form}>
-        <TextField variant="outlined" label="Japanese" autoFocus />
-        <TextField variant="outlined" label="Reading" />
-        <TextField variant="outlined" label="English" />
-        <Button type="submit" color="primary" variant="contained">
+        <TextField fullWidth variant="outlined" label="Japanese" autoFocus />
+        <TextField fullWidth variant="outlined" label="Reading" />
+        <TextField fullWidth variant="outlined" label="English" />
+        <Button fullWidth type="submit" color="primary" variant="contained">
           Submit
         </Button>
       </form>

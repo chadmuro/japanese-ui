@@ -8,8 +8,19 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  toolbar: {
+    flexWrap: 'wrap',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(1),
+      justifyContent: 'center',
+    },
+  },
   titleWrap: {
     flexGrow: 1,
+    [theme.breakpoints.down('sm')]: {
+      flexGrow: 0,
+      justifyContent: 'center',
+    },
   },
   title: {
     cursor: 'pointer',
@@ -19,11 +30,17 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
       cursor: 'pointer',
       marginRight: theme.spacing(4),
+      [theme.breakpoints.down('sm')]: {
+        margin: theme.spacing(0, 2),
+      },
     },
   },
   buttonWrap: {
     '& > *': {
       marginLeft: theme.spacing(2),
+      [theme.breakpoints.down('sm')]: {
+        margin: theme.spacing(1),
+      },
     },
   },
 }));
@@ -34,7 +51,7 @@ const Header = () => {
 
   return (
     <AppBar position="static" color="inherit" elevation={0}>
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <div className={classes.titleWrap}>
           <Typography component="h1" variant="h6" className={classes.title}>
             Japanese for Developers

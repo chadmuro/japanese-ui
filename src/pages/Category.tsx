@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getCategories, postCategory } from '../store/slices/categorySlice';
@@ -16,12 +17,13 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(4),
   },
   form: {
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 2, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
+    maxWidth: '500px',
     '& > *': {
-      width: '500px',
       margin: theme.spacing(1),
     },
   },
@@ -64,6 +66,7 @@ const Category = () => {
           defaultValue=""
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
+              fullWidth
               variant="outlined"
               label="New Category"
               value={value}
@@ -75,23 +78,25 @@ const Category = () => {
           rules={{ required: 'Category name is required' }}
         />
 
-        <Button type="submit" color="primary" variant="contained">
+        <Button fullWidth type="submit" color="primary" variant="contained">
           Submit
         </Button>
       </form>
-      <Grid
-        container
-        spacing={3}
-        justifyContent="center"
-        className={classes.grid}
-      >
-        {categories &&
-          categories.map(category => (
-            <Grid key={category._id} item>
-              <Chip color="secondary" label={category.name} />
-            </Grid>
-          ))}
-      </Grid>
+      <Container>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="center"
+          className={classes.grid}
+        >
+          {categories &&
+            categories.map(category => (
+              <Grid key={category._id} item>
+                <Chip color="secondary" label={category.name} />
+              </Grid>
+            ))}
+        </Grid>
+      </Container>
     </Layout>
   );
 };

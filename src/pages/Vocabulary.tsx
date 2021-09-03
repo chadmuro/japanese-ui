@@ -28,7 +28,10 @@ const Vocabulary = () => {
   return (
     <Layout>
       <Typography component="h2" variant="h4" className={classes.title}>
-        Vocabulary
+        {vocabularies &&
+          vocabularies.map(vocabulary => (
+            <Typography variant="body1">{vocabulary.japanese}</Typography>
+          ))}
       </Typography>
     </Layout>
   );
