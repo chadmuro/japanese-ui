@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/layout/Layout';
 import { getVocabularies } from '../store/slices/vocabularySlice';
 
 const useStyles = makeStyles(theme => ({

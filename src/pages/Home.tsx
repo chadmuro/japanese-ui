@@ -1,9 +1,10 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/layout/Layout';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { getCategories } from '../store/slices/categorySlice';
+import CreateVocabularyForm from '../components/forms/CreateVocabularyForm';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -13,40 +14,23 @@ const useStyles = makeStyles(theme => ({
       fontSize: theme.typography.h6.fontSize,
     },
   },
-  form: {
-    padding: theme.spacing(4, 2, 0),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '500px',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
 }));
 
 const Home = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch();
+  const { categories } = useAppSelector(state => state.category);
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log('submit');
-  };
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <Layout>
       <Typography component="h2" variant="h4" className={classes.title}>
         Useful Japanese vocabulary and phrases for developers.
       </Typography>
-      <form onSubmit={onSubmit} className={classes.form}>
-        <TextField fullWidth variant="outlined" label="Japanese" autoFocus />
-        <TextField fullWidth variant="outlined" label="Reading" />
-        <TextField fullWidth variant="outlined" label="English" />
-        <Button fullWidth type="submit" color="primary" variant="contained">
-          Submit
-        </Button>
-      </form>
+      <CreateVocabularyForm categories={categories} />
     </Layout>
   );
 };
