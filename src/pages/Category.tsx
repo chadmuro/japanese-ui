@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/Layout/Layout';
 import { getCategories } from '../store/slices/categorySlice';
 import CreateCategoryForm from '../components/forms/CreateCategoryForm';
 

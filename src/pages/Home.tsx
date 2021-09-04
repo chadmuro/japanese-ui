@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/Layout/Layout';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { getCategories } from '../store/slices/categorySlice';
 import CreateVocabularyForm from '../components/forms/CreateVocabularyForm';
