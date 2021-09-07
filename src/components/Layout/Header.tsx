@@ -64,7 +64,7 @@ const Header = () => {
             Vocabulary
           </Link>
           <Link color="primary" onClick={() => history.push('/category')}>
-            Categories
+            Category
           </Link>
         </nav>
         <div className={classes.buttonWrap}>

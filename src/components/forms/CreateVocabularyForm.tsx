@@ -53,7 +53,6 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             fullWidth
             variant="outlined"
             label="Japanese"
-            autoFocus
             value={value}
             onChange={onChange}
             error={!!error}

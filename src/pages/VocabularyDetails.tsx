@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getVocabularies } from '../store/slices/vocabularySlice';
-import VocabButton from '../components/UI/VocabButton';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -31,10 +30,6 @@ const Vocabulary = () => {
       <Typography component="h2" variant="h4" className={classes.title}>
         Vocabulary
       </Typography>
-      {vocabularies &&
-        vocabularies.map(vocabulary => (
-          <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
-        ))}
     </Layout>
   );
 };
