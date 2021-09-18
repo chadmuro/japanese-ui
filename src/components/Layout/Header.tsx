@@ -9,14 +9,14 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles(theme => ({
   toolbar: {
     flexWrap: 'wrap',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(1),
       justifyContent: 'center',
     },
   },
   titleWrap: {
     flexGrow: 1,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       flexGrow: 0,
       justifyContent: 'center',
     },
@@ -29,19 +29,19 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
       cursor: 'pointer',
       marginRight: theme.spacing(4),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         margin: theme.spacing(0, 2),
       },
     },
   },
-  buttonWrap: {
-    '& > *': {
-      marginLeft: theme.spacing(2),
-      [theme.breakpoints.down('sm')]: {
-        margin: theme.spacing(1),
-      },
-    },
-  },
+  // buttonWrap: {
+  //   '& > *': {
+  //     marginLeft: theme.spacing(2),
+  //     [theme.breakpoints.down('xs')]: {
+  //       margin: theme.spacing(1),
+  //     },
+  //   },
+  // },
 }));
 
 const Header = () => {
@@ -67,14 +67,14 @@ const Header = () => {
             Category
           </Link>
         </nav>
-        <div className={classes.buttonWrap}>
+        {/* <div className={classes.buttonWrap}>
           <Button color="secondary" variant="outlined">
             Login
           </Button>
           <Button color="secondary" variant="contained">
             Sign up
           </Button>
-        </div>
+        </div> */}
       </Toolbar>
     </AppBar>
   );

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
-import { getVocabularies } from '../store/slices/vocabularySlice';
+import { getVocabulary } from '../store/slices/vocabularySlice';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -12,16 +13,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+type VocabularyParams = {
+  id: string;
+};
+
 const Vocabulary = () => {
   const classes = useStyles();
+  const { id } = useParams<VocabularyParams>();
   const dispatch = useAppDispatch();
   const { vocabularies, fetching, error } = useAppSelector(
     state => state.vocabulary
   );
 
   useEffect(() => {
-    dispatch(getVocabularies());
-  }, [dispatch]);
+    dispatch(getVocabulary({ id }));
+  }, [dispatch, id]);
 
   console.log(vocabularies, fetching, error);
 

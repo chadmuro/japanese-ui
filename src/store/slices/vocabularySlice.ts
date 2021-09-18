@@ -19,6 +19,26 @@ export const getVocabularies = createAsyncThunk<
   }
 });
 
+type GetVocabularyProps = {
+  id: string;
+};
+
+export const getVocabulary = createAsyncThunk<
+  Vocabulary,
+  GetVocabularyProps,
+  { rejectValue: { message: string } }
+>('vocabulary/getOne', async (params, thunkApi) => {
+  try {
+    const response: { data: Vocabulary } = await axios.get(
+      `${config.url.API_URL}/vocabulary/${params.id}`
+    );
+    return response.data;
+  } catch (err: any) {
+    console.log(err.message);
+    return thunkApi.rejectWithValue({ message: err.message });
+  }
+});
+
 type PostVocabularyProps = {
   japanese: string;
   reading: string;
