@@ -1,5 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
+import cyan from '@material-ui/core/colors/cyan';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -16,7 +18,7 @@ interface FormValues {
 
 const useStyles = makeStyles(theme => ({
   form: {
-    padding: theme.spacing(4, 2, 0),
+    padding: theme.spacing(2, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -25,6 +27,10 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+  },
+  autocomplete: {
+    background: cyan[50],
+    color: blueGrey[900],
   },
 }));
 
@@ -120,6 +126,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             ChipProps={{
               color: 'secondary',
             }}
+            classes={{ paper: classes.autocomplete }}
           />
         )}
       />

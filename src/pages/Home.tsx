@@ -9,7 +9,7 @@ import CreateVocabularyForm from '../components/forms/CreateVocabularyForm';
 const useStyles = makeStyles(theme => ({
   title: {
     textAlign: 'center',
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 0, 2),
     [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.h6.fontSize,
     },

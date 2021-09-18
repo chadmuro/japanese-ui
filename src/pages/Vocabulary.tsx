@@ -9,7 +9,7 @@ import VocabButton from '../components/UI/VocabButton';
 const useStyles = makeStyles(theme => ({
   title: {
     textAlign: 'center',
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 0, 2),
   },
 }));
 

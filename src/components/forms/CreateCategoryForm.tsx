@@ -11,7 +11,7 @@ interface FormValues {
 
 const useStyles = makeStyles(theme => ({
   form: {
-    padding: theme.spacing(4, 2, 0),
+    padding: theme.spacing(2, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
