@@ -1,22 +1,19 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles(theme => ({
-  footer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '60px',
-  },
-}));
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const Footer = () => {
-  const classes = useStyles();
-
   return (
-    <footer className={classes.footer}>
+    <Box
+      component="footer"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '60px',
+      }}
+    >
       <Typography>Copyright &copy; Chad Murobayashi 2021</Typography>
-    </footer>
+    </Box>
   );
 };
 

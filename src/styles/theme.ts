@@ -1,7 +1,7 @@
-import { createTheme } from '@material-ui/core/styles';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import yellow from '@material-ui/core/colors/yellow';
-import cyan from '@material-ui/core/colors/cyan';
+import { createTheme } from '@mui/material/styles';
+import { blueGrey } from '@mui/material/colors';
+import { yellow } from '@mui/material/colors';
+import { cyan } from '@mui/material/colors';
 
 export const theme = createTheme({
   typography: {
@@ -21,10 +21,20 @@ export const theme = createTheme({
       primary: cyan[50],
     },
   },
-  overrides: {
+  components: {
     MuiInputLabel: {
-      outlined: {
-        color: cyan[50],
+      styleOverrides: {
+        outlined: {
+          color: cyan[50],
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        paper: {
+          background: cyan[50],
+          color: blueGrey[900],
+        },
       },
     },
   },

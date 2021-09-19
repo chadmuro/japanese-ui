@@ -1,6 +1,6 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { postCategory } from '../../store/slices/categorySlice';
 import { FormWrapper } from './FormWrapper';
@@ -31,6 +31,7 @@ const CreateCategoryForm = () => {
             onChange={onChange}
             error={!!error}
             helperText={error ? error.message : null}
+            sx={{ mb: 1 }}
           />
         )}
         rules={{ required: 'Category name is required' }}

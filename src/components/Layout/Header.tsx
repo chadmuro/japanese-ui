@@ -1,80 +1,89 @@
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-// import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles(theme => ({
-  toolbar: {
-    flexWrap: 'wrap',
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(1),
-      justifyContent: 'center',
-    },
-  },
-  titleWrap: {
-    flexGrow: 1,
-    [theme.breakpoints.down('xs')]: {
-      flexGrow: 0,
-      justifyContent: 'center',
-    },
-  },
-  title: {
-    cursor: 'pointer',
-    width: 'fit-content',
-  },
-  nav: {
-    '& > *': {
-      cursor: 'pointer',
-      marginRight: theme.spacing(4),
-      [theme.breakpoints.down('xs')]: {
-        margin: theme.spacing(0, 2),
-      },
-    },
-  },
-  // buttonWrap: {
-  //   '& > *': {
-  //     marginLeft: theme.spacing(2),
-  //     [theme.breakpoints.down('xs')]: {
-  //       margin: theme.spacing(1),
-  //     },
-  //   },
-  // },
-}));
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const Header = () => {
-  const classes = useStyles();
   const history = useHistory();
 
   return (
     <AppBar position="static" color="inherit" elevation={0}>
-      <Toolbar className={classes.toolbar}>
-        <div className={classes.titleWrap}>
-          <Typography component="h1" variant="h6" className={classes.title}>
+      <Toolbar
+        sx={{
+          flexWrap: 'wrap',
+          mt: {
+            xs: 1,
+            sm: 0,
+          },
+          justifyContent: {
+            xs: 'center',
+            sm: 'space-between',
+          },
+        }}
+      >
+        <Box
+          sx={{
+            flexGrow: {
+              xs: 0,
+              sm: 1,
+            },
+            justifyContent: {
+              xs: 'center',
+              sm: 'space-between',
+            },
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h6"
+            sx={{ cursor: 'pointer', width: 'fit-content' }}
+          >
             Japanese for Developers
           </Typography>
-        </div>
-        <nav className={classes.nav}>
-          <Link color="primary" onClick={() => history.push('/')}>
+        </Box>
+        <Box component="nav">
+          <Link
+            underline="hover"
+            onClick={() => history.push('/')}
+            sx={{ cursor: 'pointer', mr: 4 }}
+          >
             Home
           </Link>
-          <Link color="primary" onClick={() => history.push('/vocabulary')}>
+          <Link
+            underline="hover"
+            onClick={() => history.push('/vocabulary')}
+            sx={{ cursor: 'pointer', mr: 4 }}
+          >
             Vocabulary
           </Link>
-          <Link color="primary" onClick={() => history.push('/category')}>
+          <Link
+            underline="hover"
+            onClick={() => history.push('/category')}
+            sx={{ cursor: 'pointer' }}
+          >
             Category
           </Link>
-        </nav>
-        {/* <div className={classes.buttonWrap}>
+        </Box>
+        {/* <Box
+          sx={{
+            '& > *': {
+              marginLeft: theme.spacing(2),
+              [theme.breakpoints.down('xs')]: {
+                margin: theme.spacing(1),
+              },
+            },
+          }}
+        >
           <Button color="secondary" variant="outlined">
             Login
           </Button>
           <Button color="secondary" variant="contained">
             Sign up
           </Button>
-        </div> */}
+        </Box> */}
       </Toolbar>
     </AppBar>
   );

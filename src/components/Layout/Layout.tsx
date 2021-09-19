@@ -1,41 +1,41 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import Header from './Header';
 import Footer from './Footer';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.common.white,
-  },
-  main: {
-    flex: 1,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-}));
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        width: '100%',
+        backgroundColor: 'background.paper',
+        color: 'common.white',
+      }}
+    >
       <CssBaseline />
       <Header />
-      <main className={classes.main}>{children}</main>
+      <Box
+        component="main"
+        sx={{
+          flex: 1,
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {children}
+      </Box>
       <Footer />
-    </div>
+    </Box>
   );
 };
 

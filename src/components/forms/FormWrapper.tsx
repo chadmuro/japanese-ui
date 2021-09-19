@@ -1,18 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  form: {
-    padding: theme.spacing(0, 2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '500px',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import Box from '@mui/material/Box';
 
 interface FormWrapperProps {
   children: React.ReactNode;
@@ -20,11 +6,21 @@ interface FormWrapperProps {
 }
 
 export const FormWrapper = ({ children, onSubmit }: FormWrapperProps) => {
-  const classes = useStyles();
-
   return (
-    <form onSubmit={onSubmit} className={classes.form}>
+    <Box
+      component="form"
+      onSubmit={onSubmit}
+      sx={{
+        py: 0,
+        px: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: '500px',
+      }}
+    >
       {children}
-    </form>
+    </Box>
   );
 };

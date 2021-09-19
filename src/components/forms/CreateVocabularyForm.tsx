@@ -1,10 +1,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core/styles';
-import cyan from '@material-ui/core/colors/cyan';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { Category } from '../../constants/types';
 import { useAppDispatch } from '../../store/hooks';
 import { postVocabulary } from '../../store/slices/vocabularySlice';
@@ -17,19 +14,11 @@ interface FormValues {
   categories: Category[];
 }
 
-const useStyles = makeStyles(theme => ({
-  autocomplete: {
-    background: cyan[50],
-    color: blueGrey[900],
-  },
-}));
-
 interface CreateVocabularyFormProps {
   categories: Category[];
 }
 
 const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
-  const classes = useStyles();
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
 
@@ -53,6 +42,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             onChange={onChange}
             error={!!error}
             helperText={error ? error.message : null}
+            sx={{ mb: 1 }}
           />
         )}
         rules={{ required: 'Japanese is required' }}
@@ -70,6 +60,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             onChange={onChange}
             error={!!error}
             helperText={error ? error.message : null}
+            sx={{ mb: 1 }}
           />
         )}
         rules={{ required: 'Reading is required' }}
@@ -87,6 +78,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             onChange={onChange}
             error={!!error}
             helperText={error ? error.message : null}
+            sx={{ mb: 1 }}
           />
         )}
         rules={{ required: 'English is required' }}
@@ -116,7 +108,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             ChipProps={{
               color: 'secondary',
             }}
-            classes={{ paper: classes.autocomplete }}
+            sx={{ mb: 1 }}
           />
         )}
       />

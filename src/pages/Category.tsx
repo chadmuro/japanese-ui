@@ -1,22 +1,14 @@
 import { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Chip from '@mui/material/Chip';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getCategories } from '../store/slices/categorySlice';
 import CreateCategoryForm from '../components/forms/CreateCategoryForm';
 import { Title } from '../components/Layout/Title';
 
-const useStyles = makeStyles(theme => ({
-  grid: {
-    marginTop: theme.spacing(4),
-  },
-}));
-
 const Category = () => {
-  const classes = useStyles();
   const dispatch = useAppDispatch();
   const { categories, fetching, error } = useAppSelector(
     state => state.category
@@ -30,14 +22,16 @@ const Category = () => {
 
   return (
     <Layout>
-      <Title label="Categories" />
+      <Title label="Category" />
       <CreateCategoryForm />
       <Container>
         <Grid
           container
           spacing={3}
           justifyContent="center"
-          className={classes.grid}
+          sx={{
+            mt: 4,
+          }}
         >
           {categories &&
             categories.map(category => (
