@@ -1,30 +1,15 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { postCategory } from '../../store/slices/categorySlice';
+import { FormWrapper } from './FormWrapper';
 
 interface FormValues {
   name: string;
 }
 
-const useStyles = makeStyles(theme => ({
-  form: {
-    padding: theme.spacing(2, 0),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '500px',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 const CreateCategoryForm = () => {
-  const classes = useStyles();
   const { handleSubmit, control } = useForm();
   const dispatch = useAppDispatch();
 
@@ -32,7 +17,7 @@ const CreateCategoryForm = () => {
     dispatch(postCategory(data.name));
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="name"
         control={control}
@@ -53,7 +38,7 @@ const CreateCategoryForm = () => {
       <Button fullWidth type="submit" color="primary" variant="contained">
         Submit
       </Button>
-    </form>
+    </FormWrapper>
   );
 };
 

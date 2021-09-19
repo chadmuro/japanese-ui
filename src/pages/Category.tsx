@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -8,12 +7,9 @@ import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getCategories } from '../store/slices/categorySlice';
 import CreateCategoryForm from '../components/forms/CreateCategoryForm';
+import { Title } from '../components/Layout/Title';
 
 const useStyles = makeStyles(theme => ({
-  title: {
-    textAlign: 'center',
-    padding: theme.spacing(4, 0, 2),
-  },
   grid: {
     marginTop: theme.spacing(4),
   },
@@ -34,9 +30,7 @@ const Category = () => {
 
   return (
     <Layout>
-      <Typography component="h2" variant="h4" className={classes.title}>
-        Categories
-      </Typography>
+      <Title label="Categories" />
       <CreateCategoryForm />
       <Container>
         <Grid

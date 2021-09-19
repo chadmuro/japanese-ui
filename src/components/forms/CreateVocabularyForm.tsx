@@ -8,6 +8,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Category } from '../../constants/types';
 import { useAppDispatch } from '../../store/hooks';
 import { postVocabulary } from '../../store/slices/vocabularySlice';
+import { FormWrapper } from './FormWrapper';
 
 interface FormValues {
   japanese: string;
@@ -17,17 +18,6 @@ interface FormValues {
 }
 
 const useStyles = makeStyles(theme => ({
-  form: {
-    padding: theme.spacing(2, 0),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '500px',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
   autocomplete: {
     background: cyan[50],
     color: blueGrey[900],
@@ -49,7 +39,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="japanese"
         control={control}
@@ -133,7 +123,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
       <Button fullWidth type="submit" color="primary" variant="contained">
         Submit
       </Button>
-    </form>
+    </FormWrapper>
   );
 };
 
