@@ -7,7 +7,7 @@ import { Title } from '../components/Layout/Title';
 
 const Vocabulary = () => {
   const dispatch = useAppDispatch();
-  const { vocabularies, fetching, error } = useAppSelector(
+  const { vocabularies, fetching, fetchError } = useAppSelector(
     state => state.vocabulary
   );
 
@@ -15,7 +15,7 @@ const Vocabulary = () => {
     dispatch(getVocabularies());
   }, [dispatch]);
 
-  console.log(vocabularies, fetching, error);
+  console.log(vocabularies, fetching, fetchError);
 
   return (
     <Layout>

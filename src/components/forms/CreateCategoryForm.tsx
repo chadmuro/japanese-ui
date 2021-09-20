@@ -9,7 +9,11 @@ interface FormValues {
   name: string;
 }
 
-const CreateCategoryForm = () => {
+interface CreateCategoryFormProps {
+  posting: boolean;
+}
+
+const CreateCategoryForm = ({ posting }: CreateCategoryFormProps) => {
   const { handleSubmit, control } = useForm();
   const dispatch = useAppDispatch();
 
@@ -36,7 +40,13 @@ const CreateCategoryForm = () => {
         )}
         rules={{ required: 'Category name is required' }}
       />
-      <Button fullWidth type="submit" color="primary" variant="contained">
+      <Button
+        fullWidth
+        type="submit"
+        color="primary"
+        variant="contained"
+        disabled={posting}
+      >
         Submit
       </Button>
     </FormWrapper>

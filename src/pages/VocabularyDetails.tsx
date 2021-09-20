@@ -13,7 +13,7 @@ type VocabularyParams = {
 const Vocabulary = () => {
   const { id } = useParams<VocabularyParams>();
   const dispatch = useAppDispatch();
-  const { vocabulary, fetching, error } = useAppSelector(
+  const { vocabulary, fetching, fetchError } = useAppSelector(
     state => state.vocabulary
   );
 
@@ -21,7 +21,7 @@ const Vocabulary = () => {
     dispatch(getVocabulary({ id }));
   }, [dispatch, id]);
 
-  console.log(vocabulary, fetching, error);
+  console.log(vocabulary, fetching, fetchError);
 
   return (
     <Layout>

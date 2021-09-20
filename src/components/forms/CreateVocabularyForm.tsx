@@ -16,9 +16,15 @@ interface FormValues {
 
 interface CreateVocabularyFormProps {
   categories: Category[];
+  fetchingCategories: boolean;
+  posting: boolean;
 }
 
-const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
+const CreateVocabularyForm = ({
+  categories,
+  fetchingCategories,
+  posting,
+}: CreateVocabularyFormProps) => {
   const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
 
@@ -98,6 +104,7 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
             }}
             options={categories}
             getOptionLabel={category => category.name}
+            loading={fetchingCategories}
             renderInput={params => (
               <TextField
                 {...params}
@@ -112,7 +119,13 @@ const CreateVocabularyForm = ({ categories }: CreateVocabularyFormProps) => {
           />
         )}
       />
-      <Button fullWidth type="submit" color="primary" variant="contained">
+      <Button
+        fullWidth
+        type="submit"
+        color="primary"
+        variant="contained"
+        disabled={posting}
+      >
         Submit
       </Button>
     </FormWrapper>

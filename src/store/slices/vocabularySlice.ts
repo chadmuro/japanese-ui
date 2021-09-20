@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { config } from '../../constants/config';
 import { Vocabulary } from '../../constants/types';
@@ -14,8 +14,14 @@ export const getVocabularies = createAsyncThunk<
     );
     return response.data;
   } catch (err: any) {
-    console.log(err.message);
-    return thunkApi.rejectWithValue({ message: err.message });
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
   }
 });
 
@@ -34,8 +40,14 @@ export const getVocabulary = createAsyncThunk<
     );
     return response.data;
   } catch (err: any) {
-    console.log(err.message);
-    return thunkApi.rejectWithValue({ message: err.message });
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
   }
 });
 
@@ -58,26 +70,37 @@ export const postVocabulary = createAsyncThunk<
     );
     return response.data as Vocabulary;
   } catch (err: any) {
-    return thunkApi.rejectWithValue({ message: err.message });
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
   }
 });
 
+export const resetVocabularyState = createAction('vocabulary/resetState');
+
 interface VocabularyState {
   fetching: boolean;
+  fetchError: string | null;
   vocabularies: Vocabulary[];
   vocabulary: Vocabulary | null;
   posting: boolean;
   posted: boolean;
-  error: string | null;
+  postError: string | null;
 }
 
 const initialState = {
   fetching: false,
+  fetchError: null,
   vocabularies: [],
   vocabulary: null,
   posting: false,
   posted: false,
-  error: null,
+  postError: null,
 } as VocabularyState;
 
 export const vocabularySlice = createSlice({
@@ -96,7 +119,7 @@ export const vocabularySlice = createSlice({
       .addCase(getVocabularies.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
-          state.error = payload.message;
+          state.fetchError = payload.message;
         }
       })
       .addCase(getVocabulary.pending, state => {
@@ -109,23 +132,30 @@ export const vocabularySlice = createSlice({
       .addCase(getVocabulary.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
-          state.error = payload.message;
+          state.fetchError = payload.message;
         }
       })
       .addCase(postVocabulary.pending, state => {
         state.posting = true;
-        state.error = null;
+        state.postError = null;
       })
       .addCase(postVocabulary.fulfilled, state => {
         state.posting = false;
         state.posted = true;
-        state.error = null;
+        state.postError = null;
       })
       .addCase(postVocabulary.rejected, (state, { payload }) => {
         state.posting = false;
         if (payload) {
-          state.error = payload.message;
+          state.postError = payload.message;
         }
+      })
+      .addCase(resetVocabularyState, state => {
+        state.fetching = false;
+        state.fetchError = null;
+        state.posting = false;
+        state.posted = false;
+        state.postError = null;
       });
   },
 });

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { config } from '../../constants/config';
 import { Category } from '../../constants/types';
@@ -14,8 +14,14 @@ export const getCategories = createAsyncThunk<
     );
     return response.data;
   } catch (err: any) {
-    console.log(err.message);
-    return thunkApi.rejectWithValue({ message: err.message });
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
   }
 });
 
@@ -32,24 +38,35 @@ export const postCategory = createAsyncThunk<
     });
     return response.data as Category;
   } catch (err: any) {
-    return thunkApi.rejectWithValue({ message: err.message });
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
   }
 });
 
+export const resetCategoryState = createAction('category/resetState');
+
 interface CategoryState {
   fetching: boolean;
+  fetchError: string | null;
   categories: Category[];
   posting: boolean;
   posted: boolean;
-  error: string | null;
+  postError: string | null;
 }
 
 const initialState = {
   fetching: false,
+  fetchError: null,
   categories: [],
   posting: false,
   posted: false,
-  error: null,
+  postError: null,
 } as CategoryState;
 
 export const categorySlice = createSlice({
@@ -68,23 +85,30 @@ export const categorySlice = createSlice({
       .addCase(getCategories.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
-          state.error = payload.message;
+          state.fetchError = payload.message;
         }
       })
       .addCase(postCategory.pending, state => {
         state.posting = true;
-        state.error = null;
+        state.postError = null;
       })
       .addCase(postCategory.fulfilled, state => {
         state.posting = false;
         state.posted = true;
-        state.error = null;
+        state.postError = null;
       })
       .addCase(postCategory.rejected, (state, { payload }) => {
         state.posting = false;
         if (payload) {
-          state.error = payload.message;
+          state.postError = payload.message;
         }
+      })
+      .addCase(resetCategoryState, state => {
+        state.fetching = false;
+        state.fetchError = null;
+        state.posting = false;
+        state.posted = false;
+        state.postError = null;
       });
   },
 });
