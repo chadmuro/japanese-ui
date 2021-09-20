@@ -27,7 +27,7 @@ const Category = () => {
       <Container>
         <Grid
           container
-          spacing={3}
+          spacing={2}
           justifyContent="center"
           sx={{
             mt: 4,

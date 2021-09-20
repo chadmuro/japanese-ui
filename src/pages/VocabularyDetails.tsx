@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getVocabulary } from '../store/slices/vocabularySlice';
 import { Title } from '../components/Layout/Title';
+import VocabDetails from '../components/UI/VocabDetails';
 
 type VocabularyParams = {
   id: string;
@@ -12,7 +13,7 @@ type VocabularyParams = {
 const Vocabulary = () => {
   const { id } = useParams<VocabularyParams>();
   const dispatch = useAppDispatch();
-  const { vocabularies, fetching, error } = useAppSelector(
+  const { vocabulary, fetching, error } = useAppSelector(
     state => state.vocabulary
   );
 
@@ -20,11 +21,12 @@ const Vocabulary = () => {
     dispatch(getVocabulary({ id }));
   }, [dispatch, id]);
 
-  console.log(vocabularies, fetching, error);
+  console.log(vocabulary, fetching, error);
 
   return (
     <Layout>
       <Title label="Vocabulary" />
+      <VocabDetails vocabulary={vocabulary} fetching={fetching} />
     </Layout>
   );
 };

@@ -65,6 +65,7 @@ export const postVocabulary = createAsyncThunk<
 interface VocabularyState {
   fetching: boolean;
   vocabularies: Vocabulary[];
+  vocabulary: Vocabulary | null;
   posting: boolean;
   posted: boolean;
   error: string | null;
@@ -73,6 +74,7 @@ interface VocabularyState {
 const initialState = {
   fetching: false,
   vocabularies: [],
+  vocabulary: null,
   posting: false,
   posted: false,
   error: null,
@@ -89,9 +91,22 @@ export const vocabularySlice = createSlice({
       })
       .addCase(getVocabularies.fulfilled, (state, { payload }) => {
         state.fetching = false;
-        state.vocabularies = [...payload];
+        state.vocabularies = payload;
       })
       .addCase(getVocabularies.rejected, (state, { payload }) => {
+        state.fetching = false;
+        if (payload) {
+          state.error = payload.message;
+        }
+      })
+      .addCase(getVocabulary.pending, state => {
+        state.fetching = true;
+      })
+      .addCase(getVocabulary.fulfilled, (state, { payload }) => {
+        state.fetching = false;
+        state.vocabulary = payload;
+      })
+      .addCase(getVocabulary.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
           state.error = payload.message;

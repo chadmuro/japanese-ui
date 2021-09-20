@@ -12,10 +12,11 @@ export const Title = ({ label }: TitleProps) => {
       sx={{
         textAlign: 'center',
         py: 4,
-        px: 0,
-        // [theme.breakpoints.down('sm')]: {
-        //   fontSize: theme.typography.h6.fontSize,
-        // },
+        px: 1,
+        fontSize: {
+          xs: 'h6.fontSize',
+          sm: 'h4.fontSize',
+        },
       }}
     >
       {label}
