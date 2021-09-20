@@ -19,7 +19,7 @@ const Category = () => {
     useAppSelector(state => state.category);
   const resetState = () => dispatch(resetCategoryState());
 
-  console.log(posting, posted, postError);
+  console.log(fetching, fetchError);
 
   useEffect(() => {
     dispatch(getCategories());
