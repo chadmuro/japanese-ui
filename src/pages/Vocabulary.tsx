@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import { getVocabularies } from '../store/slices/vocabularySlice';
@@ -20,10 +21,12 @@ const Vocabulary = () => {
   return (
     <Layout>
       <Title label="Vocabulary" />
-      {vocabularies &&
-        vocabularies.map(vocabulary => (
-          <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
-        ))}
+      <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {vocabularies &&
+          vocabularies.map(vocabulary => (
+            <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
+          ))}
+      </Box>
     </Layout>
   );
 };

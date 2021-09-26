@@ -14,7 +14,7 @@ const VocabButton = ({ vocabulary }: VocabButtonProps) => {
       to={`/vocabulary/${vocabulary._id}`}
       style={{ textDecoration: 'none' }}
     >
-      <Button variant="contained" color="primary" sx={{ mb: 2 }}>
+      <Button variant="contained" color="primary" sx={{ mb: 2, mx: 1 }}>
         <Box pr={4}>
           <Typography variant="caption">{vocabulary.reading}</Typography>
           <Typography variant="h6">{vocabulary.japanese}</Typography>
