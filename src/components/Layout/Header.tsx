@@ -42,23 +42,30 @@ const Header = () => {
           <Link
             underline="hover"
             onClick={() => history.push('/')}
-            sx={{ cursor: 'pointer', mr: 4 }}
+            sx={{ cursor: 'pointer', pr: 4 }}
           >
             Home
           </Link>
           <Link
             underline="hover"
             onClick={() => history.push('/vocabulary')}
-            sx={{ cursor: 'pointer', mr: 4 }}
+            sx={{ cursor: 'pointer', pr: 4 }}
           >
             Vocabulary
           </Link>
           <Link
             underline="hover"
             onClick={() => history.push('/category')}
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: 'pointer', pr: 4 }}
           >
             Category
+          </Link>
+          <Link
+            underline="hover"
+            onClick={() => history.push('/study')}
+            sx={{ cursor: 'pointer' }}
+          >
+            Study
           </Link>
         </Box>
       </Toolbar>

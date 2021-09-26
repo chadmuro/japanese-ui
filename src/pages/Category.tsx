@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import {
@@ -11,6 +9,7 @@ import {
 import CreateCategoryForm from '../components/forms/CreateCategoryForm';
 import { Title } from '../components/Layout/Title';
 import { AlertSnackbar } from '../components/UI/AlertSnackbar';
+import { CategoryChip } from '../components/UI/CategoryChip';
 
 const Category = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -50,23 +49,19 @@ const Category = () => {
         severity={postError ? 'error' : 'success'}
         resetState={resetState}
       />
-      <Container>
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          sx={{
-            mt: 4,
-          }}
-        >
-          {categories &&
-            categories.map(category => (
-              <Grid key={category._id} item>
-                <Chip color="secondary" label={category.name} />
-              </Grid>
-            ))}
-        </Grid>
-      </Container>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          pt: 4,
+        }}
+      >
+        {categories &&
+          categories.map(category => (
+            <CategoryChip color="secondary" label={category.name} />
+          ))}
+      </Box>
     </Layout>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Header from './Header';
 import Footer from './Footer';
@@ -22,7 +23,8 @@ const Layout = ({ children }: LayoutProps) => {
     >
       <CssBaseline />
       <Header />
-      <Box
+      <Container
+        maxWidth="md"
         component="main"
         sx={{
           flex: 1,
@@ -33,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
         }}
       >
         {children}
-      </Box>
+      </Container>
       <Footer />
     </Box>
   );

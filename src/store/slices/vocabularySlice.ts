@@ -124,6 +124,7 @@ export const vocabularySlice = createSlice({
       })
       .addCase(getVocabulary.pending, state => {
         state.fetching = true;
+        state.vocabulary = null;
       })
       .addCase(getVocabulary.fulfilled, (state, { payload }) => {
         state.fetching = false;
