@@ -25,6 +25,32 @@ export const getCategories = createAsyncThunk<
   }
 });
 
+type GetCategoryProps = {
+  id: string;
+};
+
+export const getCategory = createAsyncThunk<
+  Category,
+  GetCategoryProps,
+  { rejectValue: { message: string } }
+>('category/getOne', async (params, thunkApi) => {
+  try {
+    const response: { data: Category } = await axios.get(
+      `${config.url.API_URL}/category/${params.id}`
+    );
+    return response.data;
+  } catch (err: any) {
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
+  }
+});
+
 export const postCategory = createAsyncThunk<
   Category,
   string,
@@ -55,6 +81,7 @@ interface CategoryState {
   fetching: boolean;
   fetchError: string | null;
   categories: Category[];
+  category: Category | null;
   posting: boolean;
   posted: boolean;
   postError: string | null;
@@ -64,6 +91,7 @@ const initialState = {
   fetching: false,
   fetchError: null,
   categories: [],
+  category: null,
   posting: false,
   posted: false,
   postError: null,
@@ -83,6 +111,20 @@ export const categorySlice = createSlice({
         state.categories = payload;
       })
       .addCase(getCategories.rejected, (state, { payload }) => {
+        state.fetching = false;
+        if (payload) {
+          state.fetchError = payload.message;
+        }
+      })
+      .addCase(getCategory.pending, state => {
+        state.fetching = true;
+        state.category = null;
+      })
+      .addCase(getCategory.fulfilled, (state, { payload }) => {
+        state.fetching = false;
+        state.category = payload;
+      })
+      .addCase(getCategory.rejected, (state, { payload }) => {
         state.fetching = false;
         if (payload) {
           state.fetchError = payload.message;

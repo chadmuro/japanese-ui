@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
@@ -12,6 +13,7 @@ import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 import { CategoryChip } from '../components/UI/CategoryChip';
 
 const Category = () => {
+  const history = useHistory();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const dispatch = useAppDispatch();
   const { categories, fetching, fetchError, posting, posted, postError } =
@@ -38,6 +40,10 @@ const Category = () => {
     }
   }, [posted, postError, dispatch]);
 
+  const handleChipClick = (id: string) => {
+    history.push(`/category/${id}`);
+  };
+
   return (
     <Layout>
       <Title label="Category" />
@@ -59,7 +65,12 @@ const Category = () => {
       >
         {categories &&
           categories.map(category => (
-            <CategoryChip color="secondary" label={category.name} />
+            <CategoryChip
+              key={category._id}
+              color="secondary"
+              label={category.name}
+              onClick={() => handleChipClick(category._id)}
+            />
           ))}
       </Box>
     </Layout>

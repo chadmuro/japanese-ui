@@ -21,7 +21,7 @@ const Vocabulary = () => {
     dispatch(getVocabulary({ id }));
   }, [dispatch, id]);
 
-  console.log(vocabulary, fetching, fetchError);
+  console.log(fetchError);
 
   return (
     <Layout>
