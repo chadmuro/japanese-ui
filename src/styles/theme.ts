@@ -31,9 +31,9 @@ export const theme = createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
-        paper: {
-          background: cyan[50],
-          color: blueGrey[900],
+        option: {
+          background: blueGrey[700],
+          color: cyan[50],
         },
       },
     },

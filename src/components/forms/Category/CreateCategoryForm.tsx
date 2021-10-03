@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useAppDispatch } from '../../store/hooks';
-import { postCategory } from '../../store/slices/categorySlice';
-import { FormWrapper } from './FormWrapper';
+import { useAppDispatch } from '../../../store/hooks';
+import { postCategory } from '../../../store/slices/categorySlice';
+import { FormWrapper } from '../FormWrapper';
 
 interface FormValues {
   name: string;

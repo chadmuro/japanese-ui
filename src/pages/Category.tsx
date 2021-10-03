@@ -7,7 +7,7 @@ import {
   getCategories,
   resetCategoryState,
 } from '../store/slices/categorySlice';
-import CreateCategoryForm from '../components/forms/CreateCategoryForm';
+import CreateCategoryForm from '../components/forms/Category/CreateCategoryForm';
 import { Title } from '../components/Layout/Title';
 import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 import { CategoryChip } from '../components/UI/CategoryChip';

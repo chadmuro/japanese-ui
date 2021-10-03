@@ -3,7 +3,7 @@ import Layout from '../components/Layout/Layout';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { getCategories } from '../store/slices/categorySlice';
 import { resetVocabularyState } from '../store/slices/vocabularySlice';
-import CreateVocabularyForm from '../components/forms/CreateVocabularyForm';
+import CreateVocabularyForm from '../components/forms/Vocabulary/CreateVocabularyForm';
 import { Title } from '../components/Layout/Title';
 import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 

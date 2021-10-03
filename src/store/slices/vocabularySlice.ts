@@ -81,6 +81,37 @@ export const postVocabulary = createAsyncThunk<
   }
 });
 
+type UpdateVocabularyProps = {
+  id: string;
+  japanese: string;
+  reading: string;
+  english: string;
+  categories?: string[];
+};
+
+export const updateVocabulary = createAsyncThunk<
+  Vocabulary,
+  UpdateVocabularyProps,
+  { rejectValue: { message: string } }
+>('vocabulary/update', async (params, thunkApi) => {
+  try {
+    const response = await axios.put(
+      `${config.url.API_URL}/vocabulary/${params.id}`,
+      params
+    );
+    return response.data as Vocabulary;
+  } catch (err: any) {
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
+  }
+});
+
 export const resetVocabularyState = createAction('vocabulary/resetState');
 
 interface VocabularyState {
@@ -146,6 +177,21 @@ export const vocabularySlice = createSlice({
         state.postError = null;
       })
       .addCase(postVocabulary.rejected, (state, { payload }) => {
+        state.posting = false;
+        if (payload) {
+          state.postError = payload.message;
+        }
+      })
+      .addCase(updateVocabulary.pending, state => {
+        state.posting = true;
+        state.postError = null;
+      })
+      .addCase(updateVocabulary.fulfilled, state => {
+        state.posting = false;
+        state.posted = true;
+        state.postError = null;
+      })
+      .addCase(updateVocabulary.rejected, (state, { payload }) => {
         state.posting = false;
         if (payload) {
           state.postError = payload.message;

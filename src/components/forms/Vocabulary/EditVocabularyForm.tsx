@@ -1,53 +1,57 @@
-import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Category } from '../../constants/types';
-import { useAppDispatch } from '../../store/hooks';
-import { postVocabulary } from '../../store/slices/vocabularySlice';
-import { FormWrapper } from './FormWrapper';
+import { Category, Vocabulary } from '../../../constants/types';
+import { useAppDispatch } from '../../../store/hooks';
+import { updateVocabulary } from '../../../store/slices/vocabularySlice';
+import { FormWrapper } from '../FormWrapper';
 
 interface FormValues {
   japanese: string;
   reading: string;
   english: string;
-  categories: Category[];
+  categories: Pick<Category, '_id' | 'name'>[];
 }
 
-interface CreateVocabularyFormProps {
+interface EditVocabularyFormProps {
   categories: Category[];
   fetchingCategories: boolean;
   posting: boolean;
-  posted: boolean;
+  vocabulary: Vocabulary | null;
 }
 
-const CreateVocabularyForm = ({
+const EditVocabularyForm = ({
   categories,
   fetchingCategories,
   posting,
-  posted,
-}: CreateVocabularyFormProps) => {
+  vocabulary,
+}: EditVocabularyFormProps) => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control, reset } = useForm({
-    defaultValues: {
-      japanese: '',
-      reading: '',
-      english: '',
-      categories: [],
-    },
+
+  const defaultValues = {
+    japanese: vocabulary ? vocabulary.japanese : '',
+    reading: vocabulary ? vocabulary.reading : '',
+    english: vocabulary ? vocabulary.english : '',
+    categories: vocabulary
+      ? vocabulary.categories.map(category => {
+          return {
+            _id: category._id,
+            name: category.name,
+          };
+        })
+      : [],
+  };
+  const { handleSubmit, control } = useForm({
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     const categories = data.categories.map(category => category._id);
-    dispatch(postVocabulary({ ...data, categories }));
+    dispatch(
+      updateVocabulary({ ...data, categories, id: vocabulary?._id || '' })
+    );
   };
-
-  useEffect(() => {
-    if (posted) {
-      reset();
-    }
-  }, [reset, posted]);
 
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
@@ -128,6 +132,7 @@ const CreateVocabularyForm = ({
               color: 'secondary',
             }}
             sx={{ mb: 1 }}
+            isOptionEqualToValue={(option, value) => option._id === value._id}
           />
         )}
       />
@@ -144,4 +149,4 @@ const CreateVocabularyForm = ({
   );
 };
 
-export default CreateVocabularyForm;
+export default EditVocabularyForm;
