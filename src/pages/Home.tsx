@@ -36,6 +36,7 @@ const Home = () => {
         categories={categories}
         fetchingCategories={fetching}
         posting={posting}
+        posted={posted}
       />
       <AlertSnackbar
         open={openSnackbar}

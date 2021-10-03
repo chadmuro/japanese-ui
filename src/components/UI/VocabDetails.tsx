@@ -47,8 +47,9 @@ const VocabDetails = ({ vocabulary, fetching }: VocabDetailsProps) => {
         }}
       >
         {fetching
-          ? [...Array(5)].map((i: any) => (
+          ? [...Array(5)].map((i: any, index: number) => (
               <Skeleton
+                key={index}
                 variant="rectangular"
                 width={50}
                 height={20}

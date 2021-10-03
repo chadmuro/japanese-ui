@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -11,21 +12,32 @@ interface FormValues {
 
 interface CreateCategoryFormProps {
   posting: boolean;
+  posted: boolean;
 }
 
-const CreateCategoryForm = ({ posting }: CreateCategoryFormProps) => {
-  const { handleSubmit, control } = useForm();
+const CreateCategoryForm = ({ posting, posted }: CreateCategoryFormProps) => {
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      name: '',
+    },
+  });
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     dispatch(postCategory(data.name));
   };
+
+  useEffect(() => {
+    if (posted) {
+      reset();
+    }
+  }, [posted, reset]);
+
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="name"
         control={control}
-        defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             fullWidth

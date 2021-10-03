@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -18,27 +19,41 @@ interface CreateVocabularyFormProps {
   categories: Category[];
   fetchingCategories: boolean;
   posting: boolean;
+  posted: boolean;
 }
 
 const CreateVocabularyForm = ({
   categories,
   fetchingCategories,
   posting,
+  posted,
 }: CreateVocabularyFormProps) => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      japanese: '',
+      reading: '',
+      english: '',
+      categories: [],
+    },
+  });
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     const categories = data.categories.map(category => category._id);
     dispatch(postVocabulary({ ...data, categories }));
   };
 
+  useEffect(() => {
+    if (posted) {
+      reset();
+    }
+  }, [reset, posted]);
+
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="japanese"
         control={control}
-        defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             fullWidth
@@ -56,7 +71,6 @@ const CreateVocabularyForm = ({
       <Controller
         name="reading"
         control={control}
-        defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             fullWidth
@@ -74,7 +88,6 @@ const CreateVocabularyForm = ({
       <Controller
         name="english"
         control={control}
-        defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             fullWidth
@@ -92,7 +105,6 @@ const CreateVocabularyForm = ({
       <Controller
         name="categories"
         control={control}
-        defaultValue={[]}
         render={({ field: { onChange, value } }) => (
           <Autocomplete
             fullWidth

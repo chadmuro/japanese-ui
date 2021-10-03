@@ -34,7 +34,6 @@ const Category = () => {
       setOpenSnackbar(true);
 
       return () => {
-        console.log('cleanup run');
         dispatch(resetCategoryState());
       };
     }
@@ -47,7 +46,7 @@ const Category = () => {
   return (
     <Layout>
       <Title label="Category" />
-      <CreateCategoryForm posting={posting} />
+      <CreateCategoryForm posting={posting} posted={posted} />
       <AlertSnackbar
         open={openSnackbar}
         setOpen={setOpenSnackbar}
