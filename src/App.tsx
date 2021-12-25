@@ -1,4 +1,5 @@
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
 import Home from './pages/Home';
 import Vocabulary from './pages/Vocabulary';
 import VocabularyDetails from './pages/VocabularyDetails';
@@ -15,7 +16,8 @@ function App() {
         <Route path="/category" component={Category} />
         <Route path="/vocabulary/:id" component={VocabularyDetails} />
         <Route path="/vocabulary" component={Vocabulary} />
-        <Route path="/" component={Home} />
+        <Route path="/create" component={Home} />
+        <Route path="/" component={Login} />
       </Switch>
     </Router>
   );

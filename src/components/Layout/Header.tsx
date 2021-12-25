@@ -41,10 +41,10 @@ const Header = () => {
         <Box component="nav">
           <Link
             underline="hover"
-            onClick={() => history.push('/')}
+            onClick={() => history.push('/create')}
             sx={{ cursor: 'pointer', pr: 4 }}
           >
-            Home
+            Create
           </Link>
           <Link
             underline="hover"
