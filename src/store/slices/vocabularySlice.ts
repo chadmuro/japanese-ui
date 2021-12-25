@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { config } from '../../constants/config';
 import { Vocabulary } from '../../constants/types';
 
 export const getVocabularies = createAsyncThunk<
@@ -9,9 +8,7 @@ export const getVocabularies = createAsyncThunk<
   { rejectValue: { message: string } }
 >('vocabulary/get', async (_, thunkApi) => {
   try {
-    const response: { data: Vocabulary[] } = await axios.get(
-      `${config.url.API_URL}/vocabulary`
-    );
+    const response: { data: Vocabulary[] } = await axios.get('/vocabulary');
     return response.data;
   } catch (err: any) {
     if (err.response) {
@@ -36,7 +33,7 @@ export const getVocabulary = createAsyncThunk<
 >('vocabulary/getOne', async (params, thunkApi) => {
   try {
     const response: { data: Vocabulary } = await axios.get(
-      `${config.url.API_URL}/vocabulary/${params.id}`
+      `/vocabulary/${params.id}`
     );
     return response.data;
   } catch (err: any) {
@@ -64,10 +61,7 @@ export const postVocabulary = createAsyncThunk<
   { rejectValue: { message: string } }
 >('vocabulary/post', async (params, thunkApi) => {
   try {
-    const response = await axios.post(
-      `${config.url.API_URL}/vocabulary`,
-      params
-    );
+    const response = await axios.post('/vocabulary', params);
     return response.data as Vocabulary;
   } catch (err: any) {
     if (err.response) {
@@ -95,10 +89,7 @@ export const updateVocabulary = createAsyncThunk<
   { rejectValue: { message: string } }
 >('vocabulary/update', async (params, thunkApi) => {
   try {
-    const response = await axios.put(
-      `${config.url.API_URL}/vocabulary/${params.id}`,
-      params
-    );
+    const response = await axios.put(`/vocabulary/${params.id}`, params);
     return response.data as Vocabulary;
   } catch (err: any) {
     if (err.response) {
