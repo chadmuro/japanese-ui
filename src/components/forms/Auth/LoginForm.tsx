@@ -16,7 +16,7 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ page, setPage }: LoginFormProps) => {
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control } = useForm();
 
   const onSubmit: SubmitHandler<LoginFormValues> = data => {
     console.log(data);

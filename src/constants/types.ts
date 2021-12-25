@@ -12,3 +12,9 @@ export type Vocabulary = {
   createdDate: Date;
   categories: Category[];
 };
+
+export type User = {
+  _id: string;
+  username: string;
+  accessToken: string;
+};
