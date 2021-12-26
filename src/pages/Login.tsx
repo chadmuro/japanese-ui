@@ -5,17 +5,25 @@ import CssBaseline from '@mui/material/CssBaseline';
 import LoginForm from '../components/forms/Auth/LoginForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { resetUserState } from '../store/slices/userSlice';
+import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState<'login' | 'signup'>('login');
-  const { posting, posted } = useAppSelector(state => state.user);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const { posting, posted, postError } = useAppSelector(state => state.user);
+  const resetState = () => dispatch(resetUserState());
+
+  console.log(postError);
 
   useEffect(() => {
     if (posted) {
       dispatch(resetUserState());
     }
-  }, [posted, dispatch]);
+    if (postError) {
+      setOpenSnackbar(true);
+    }
+  }, [posted, postError, dispatch]);
 
   if (posted) {
     return <Redirect to="/create" />;
@@ -35,6 +43,13 @@ const Login = () => {
       }}
     >
       <CssBaseline />
+      <AlertSnackbar
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        message={postError || ''}
+        severity="error"
+        resetState={resetState}
+      />
       <LoginForm page={page} setPage={setPage} posting={posting} />
     </Box>
   );

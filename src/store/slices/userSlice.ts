@@ -110,6 +110,7 @@ export const userSlice = createSlice({
       .addCase(resetUserState, state => {
         state.posting = false;
         state.posted = false;
+        state.postError = null;
       });
   },
 });
