@@ -6,7 +6,9 @@ export const setupInterceptors = (history: any): void => {
     const accessToken = localStorage.getItem('accessToken');
     request.baseURL = config.url.API_URL;
     request.headers['Content-Type'] = 'application/json';
-    request.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    if (accessToken) {
+      request.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    }
     return request;
   });
 
