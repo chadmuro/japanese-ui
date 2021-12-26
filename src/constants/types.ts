@@ -16,5 +16,4 @@ export type Vocabulary = {
 export type User = {
   _id: string;
   username: string;
-  accessToken: string;
 };

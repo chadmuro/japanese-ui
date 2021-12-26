@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { FormWrapper } from '../FormWrapper';
+import { useAppDispatch } from '../../../store/hooks';
+import { signup, login } from '../../../store/slices/userSlice';
 
 interface LoginFormValues {
   username: string;
@@ -13,13 +15,20 @@ interface LoginFormValues {
 interface LoginFormProps {
   page: 'login' | 'signup';
   setPage: React.Dispatch<React.SetStateAction<'login' | 'signup'>>;
+  posting: boolean;
 }
 
-const LoginForm = ({ page, setPage }: LoginFormProps) => {
+const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
+  const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm();
 
   const onSubmit: SubmitHandler<LoginFormValues> = data => {
-    console.log(data);
+    if (page === 'login') {
+      dispatch(login(data));
+    }
+    if (page === 'signup') {
+      dispatch(signup(data));
+    }
   };
 
   return (
@@ -28,9 +37,16 @@ const LoginForm = ({ page, setPage }: LoginFormProps) => {
         <Typography
           component="h1"
           variant="h6"
-          sx={{ cursor: 'pointer', width: 'fit-content', mb: 3 }}
+          sx={{ textAlign: 'center', mb: 1 }}
         >
           Japanese for Developers
+        </Typography>
+        <Typography
+          component="h2"
+          variant="h5"
+          sx={{ textAlign: 'center', mb: 3 }}
+        >
+          {page === 'login' ? 'Login' : 'Sign up'}
         </Typography>
         <Controller
           name="username"
@@ -72,7 +88,7 @@ const LoginForm = ({ page, setPage }: LoginFormProps) => {
           type="submit"
           color="primary"
           variant="contained"
-          // disabled={posting}
+          disabled={posting}
         >
           {page === 'login' ? 'Login' : 'Sign up'}
         </Button>
