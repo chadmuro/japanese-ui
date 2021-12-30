@@ -32,10 +32,7 @@ const Category = () => {
     }
     if (posted || postError) {
       setOpenSnackbar(true);
-
-      return () => {
-        dispatch(resetCategoryState());
-      };
+      dispatch(resetCategoryState());
     }
   }, [posted, postError, dispatch]);
 

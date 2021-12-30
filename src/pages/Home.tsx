@@ -22,10 +22,7 @@ const Home = () => {
   useEffect(() => {
     if (posted || postError) {
       setOpenSnackbar(true);
-
-      return () => {
-        dispatch(resetVocabularyState());
-      };
+      dispatch(resetVocabularyState());
     }
   }, [posted, postError, dispatch]);
 

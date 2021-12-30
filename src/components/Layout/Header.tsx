@@ -35,17 +35,17 @@ const Header = () => {
             variant="h6"
             sx={{ cursor: 'pointer', width: 'fit-content' }}
           >
-            Japanese for Developers
+            Japanese for JLPT
           </Typography>
         </Box>
         <Box component="nav">
-          <Link
+          {/* <Link
             underline="hover"
             onClick={() => history.push('/create')}
             sx={{ cursor: 'pointer', pr: 4 }}
           >
             Create
-          </Link>
+          </Link> */}
           <Link
             underline="hover"
             onClick={() => history.push('/vocabulary')}
