@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { InjectAxiosInterceptors } from './utils/injectInterceptors';
 import Login from './pages/Login';
-import Home from './pages/Home';
 import Vocabulary from './pages/Vocabulary';
 import VocabularyDetails from './pages/VocabularyDetails';
 import Category from './pages/Category';
@@ -19,7 +18,6 @@ function App() {
         <Route path="/category" component={Category} />
         <Route path="/vocabulary/:id" component={VocabularyDetails} />
         <Route path="/vocabulary" component={Vocabulary} />
-        <Route path="/create" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/" component={RootPage} />
       </Switch>

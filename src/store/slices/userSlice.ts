@@ -55,6 +55,8 @@ export const login = createAsyncThunk<
   }
 });
 
+export const logout = createAction('user/logou');
+
 export const resetUserState = createAction('user/resetState');
 
 interface UserState {
@@ -106,6 +108,10 @@ export const userSlice = createSlice({
         if (payload) {
           state.postError = payload.message;
         }
+      })
+      .addCase(logout, state => {
+        state.user = null;
+        localStorage.removeItem('accessToken');
       })
       .addCase(resetUserState, state => {
         state.posting = false;
