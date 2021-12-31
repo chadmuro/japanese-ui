@@ -20,7 +20,12 @@ interface LoginFormProps {
 
 const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
 
   const onSubmit: SubmitHandler<LoginFormValues> = data => {
     if (page === 'login') {
@@ -39,7 +44,7 @@ const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
           variant="h6"
           sx={{ textAlign: 'center', mb: 1 }}
         >
-          Japanese for Developers
+          Japanese for JLPT
         </Typography>
         <Typography
           component="h2"

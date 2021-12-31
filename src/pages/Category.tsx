@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
@@ -18,6 +18,8 @@ const Category = () => {
   const dispatch = useAppDispatch();
   const { categories, fetching, fetchError, posting, posted, postError } =
     useAppSelector(state => state.category);
+  const { user } = useAppSelector(state => state.user);
+
   const resetState = () => dispatch(resetCategoryState());
 
   console.log(fetching, fetchError);
@@ -39,6 +41,10 @@ const Category = () => {
   const handleChipClick = (id: string) => {
     history.push(`/category/${id}`);
   };
+
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Layout>

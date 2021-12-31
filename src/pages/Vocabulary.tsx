@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
@@ -20,6 +21,8 @@ const Vocabulary = () => {
   const { categories, fetching: fetchingCategories } = useAppSelector(
     state => state.category
   );
+  const { user } = useAppSelector(state => state.user);
+
   const resetState = () => dispatch(resetVocabularyState());
 
   console.log(fetching, fetchError);
@@ -41,6 +44,10 @@ const Vocabulary = () => {
       dispatch(resetVocabularyState());
     }
   }, [posted, postError, dispatch]);
+
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Layout>

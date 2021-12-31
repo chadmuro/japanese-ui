@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { getCategory } from '../store/slices/categorySlice';
@@ -18,12 +18,17 @@ const CategoryDetails = () => {
   const { category, fetching, fetchError } = useAppSelector(
     state => state.category
   );
+  const { user } = useAppSelector(state => state.user);
 
   useEffect(() => {
     dispatch(getCategory({ id }));
   }, [dispatch, id]);
 
   console.log(fetching, fetchError);
+
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Layout>
