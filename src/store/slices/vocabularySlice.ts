@@ -61,7 +61,12 @@ export const postVocabulary = createAsyncThunk<
   { rejectValue: { message: string } }
 >('vocabulary/post', async (params, thunkApi) => {
   try {
-    const response = await axios.post('/vocabulary', params);
+    const state: any = thunkApi.getState();
+    const response = await axios.post('/vocabulary', params, {
+      headers: {
+        role: state.user.user.role,
+      },
+    });
     return response.data as Vocabulary;
   } catch (err: any) {
     if (err.response) {
@@ -89,7 +94,12 @@ export const updateVocabulary = createAsyncThunk<
   { rejectValue: { message: string } }
 >('vocabulary/update', async (params, thunkApi) => {
   try {
-    const response = await axios.put(`/vocabulary/${params.id}`, params);
+    const state: any = thunkApi.getState();
+    const response = await axios.put(`/vocabulary/${params.id}`, params, {
+      headers: {
+        role: state.user.user.role,
+      },
+    });
     return response.data as Vocabulary;
   } catch (err: any) {
     if (err.response) {

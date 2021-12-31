@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { config } from '../constants/config';
+import store from '../store/store';
+import { logout } from '../store/slices/userSlice';
 
 export const setupInterceptors = (history: any): void => {
   axios.interceptors.request.use(request => {
@@ -19,7 +21,7 @@ export const setupInterceptors = (history: any): void => {
     error => {
       const status = error.response.status;
       if (status === undefined || status === 403 || status === 401) {
-        console.log(status);
+        store.dispatch(logout());
         history.push('/login');
       }
       return Promise.reject(error);

@@ -56,9 +56,18 @@ export const postCategory = createAsyncThunk<
   }
 >('category/post', async (name, thunkApi) => {
   try {
-    const response = await axios.post('/category', {
-      name,
-    });
+    const state: any = thunkApi.getState();
+    const response = await axios.post(
+      '/category',
+      {
+        name,
+      },
+      {
+        headers: {
+          role: state.user.user.role,
+        },
+      }
+    );
     return response.data as Category;
   } catch (err: any) {
     if (err.response) {

@@ -5,6 +5,7 @@ import { User } from '../../constants/types';
 export type UserResponse = {
   _id: string;
   username: string;
+  role: string;
   accessToken: string;
 };
 
@@ -55,7 +56,9 @@ export const login = createAsyncThunk<
   }
 });
 
-export const logout = createAction('user/logou');
+export const checkLoginState = createAction('user/checkLoginState');
+
+export const logout = createAction('user/logout');
 
 export const resetUserState = createAction('user/resetState');
 
@@ -86,7 +89,11 @@ export const userSlice = createSlice({
         state.posting = false;
         state.posted = true;
         localStorage.setItem('accessToken', payload.accessToken);
-        state.user = { _id: payload._id, username: payload.username };
+        state.user = {
+          _id: payload._id,
+          username: payload.username,
+          role: payload.role,
+        };
       })
       .addCase(signup.rejected, (state, { payload }) => {
         state.posting = false;
@@ -101,7 +108,11 @@ export const userSlice = createSlice({
         state.posting = false;
         state.posted = true;
         localStorage.setItem('accessToken', payload.accessToken);
-        state.user = { _id: payload._id, username: payload.username };
+        state.user = {
+          _id: payload._id,
+          username: payload.username,
+          role: payload.role,
+        };
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.posting = false;
