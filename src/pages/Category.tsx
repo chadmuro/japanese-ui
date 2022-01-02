@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';

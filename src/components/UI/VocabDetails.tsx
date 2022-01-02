@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
@@ -10,6 +11,12 @@ interface VocabDetailsProps {
 }
 
 const VocabDetails = ({ vocabulary, fetching }: VocabDetailsProps) => {
+  const history = useHistory();
+
+  const handleChipClick = (id: string) => {
+    history.push(`/category/${id}`);
+  };
+
   return (
     <Box
       sx={{
@@ -61,6 +68,7 @@ const VocabDetails = ({ vocabulary, fetching }: VocabDetailsProps) => {
                 key={category._id}
                 color="secondary"
                 label={category.name}
+                onClick={() => handleChipClick(category._id)}
               />
             ))}
       </Box>

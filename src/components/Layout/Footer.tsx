@@ -12,7 +12,7 @@ const Footer = () => {
         height: '60px',
       }}
     >
-      <Typography>Copyright &copy; Chad Murobayashi 2021</Typography>
+      <Typography>Copyright &copy; Chad Murobayashi 2022</Typography>
     </Box>
   );
 };
