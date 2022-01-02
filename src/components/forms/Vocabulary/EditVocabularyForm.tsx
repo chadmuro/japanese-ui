@@ -29,27 +29,41 @@ const EditVocabularyForm = ({
 }: EditVocabularyFormProps) => {
   const dispatch = useAppDispatch();
 
+  const originalCategories = vocabulary?.categories.map(category => {
+    return {
+      _id: category._id,
+      name: category.name,
+    };
+  });
+
   const defaultValues = {
     japanese: vocabulary ? vocabulary.japanese : '',
     reading: vocabulary ? vocabulary.reading : '',
     english: vocabulary ? vocabulary.english : '',
-    categories: vocabulary
-      ? vocabulary.categories.map(category => {
-          return {
-            _id: category._id,
-            name: category.name,
-          };
-        })
-      : [],
+    categories: vocabulary ? originalCategories : [],
   };
   const { handleSubmit, control } = useForm({
     defaultValues,
   });
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    const categories = data.categories.map(category => category._id);
+    const categoriesDefault = originalCategories?.map(category => category._id);
+    const categoriesNew = data.categories.map(category => category._id);
+    const categoriesAdd = categoriesNew.filter(
+      id => !categoriesDefault?.includes(id)
+    );
+    const categoriesRemove = categoriesDefault?.filter(
+      id => !categoriesNew.includes(id)
+    );
+
     dispatch(
-      updateVocabulary({ ...data, categories, id: vocabulary?._id || '' })
+      updateVocabulary({
+        ...data,
+        categories: categoriesNew,
+        categoriesAdd,
+        categoriesRemove,
+        id: vocabulary?._id || '',
+      })
     );
   };
 

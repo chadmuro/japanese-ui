@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
@@ -85,7 +86,7 @@ const Vocabulary = () => {
               sx={{ color: 'text.primary' }}
               onClick={() => setEditForm(!editForm)}
             >
-              <EditIcon />
+              {editForm ? <ArrowBackIcon /> : <EditIcon />}
             </IconButton>
           </Box>
           <AlertSnackbar

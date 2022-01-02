@@ -85,7 +85,9 @@ type UpdateVocabularyProps = {
   japanese: string;
   reading: string;
   english: string;
-  categories?: string[];
+  categories: string[];
+  categoriesAdd?: string[];
+  categoriesRemove?: string[];
 };
 
 export const updateVocabulary = createAsyncThunk<
