@@ -22,6 +22,7 @@ const Vocabulary = () => {
     state => state.category
   );
   const { user } = useAppSelector(state => state.user);
+  const accessToken = localStorage.getItem('accessToken');
 
   const resetState = () => dispatch(resetVocabularyState());
 
@@ -45,32 +46,35 @@ const Vocabulary = () => {
     }
   }, [posted, postError, dispatch]);
 
-  if (!user) {
+  if (!accessToken) {
     return <Redirect to="/login" />;
   }
 
   return (
     <Layout>
       <Title label="Vocabulary" />
-      <CreateVocabularyForm
-        categories={categories}
-        fetchingCategories={fetchingCategories}
-        posting={posting}
-        posted={posted}
-      />
-      <AlertSnackbar
-        open={openSnackbar}
-        setOpen={setOpenSnackbar}
-        message={postError ? postError : 'New vocabulary created'}
-        severity={postError ? 'error' : 'success'}
-        resetState={resetState}
-      />
+      {user?.role === 'admin' && (
+        <>
+          <CreateVocabularyForm
+            categories={categories}
+            fetchingCategories={fetchingCategories}
+            posting={posting}
+            posted={posted}
+          />
+          <AlertSnackbar
+            open={openSnackbar}
+            setOpen={setOpenSnackbar}
+            message={postError ? postError : 'New vocabulary created'}
+            severity={postError ? 'error' : 'success'}
+            resetState={resetState}
+          />
+        </>
+      )}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           flexWrap: 'wrap',
-          pt: 4,
         }}
       >
         {vocabularies &&

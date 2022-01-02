@@ -19,6 +19,7 @@ const Category = () => {
   const { categories, fetching, fetchError, posting, posted, postError } =
     useAppSelector(state => state.category);
   const { user } = useAppSelector(state => state.user);
+  const accessToken = localStorage.getItem('accessToken');
 
   const resetState = () => dispatch(resetCategoryState());
 
@@ -42,27 +43,30 @@ const Category = () => {
     history.push(`/category/${id}`);
   };
 
-  if (!user) {
+  if (!accessToken) {
     return <Redirect to="/login" />;
   }
 
   return (
     <Layout>
       <Title label="Category" />
-      <CreateCategoryForm posting={posting} posted={posted} />
-      <AlertSnackbar
-        open={openSnackbar}
-        setOpen={setOpenSnackbar}
-        message={postError ? postError : 'New category created'}
-        severity={postError ? 'error' : 'success'}
-        resetState={resetState}
-      />
+      {user?.role === 'admin' && (
+        <>
+          <CreateCategoryForm posting={posting} posted={posted} />
+          <AlertSnackbar
+            open={openSnackbar}
+            setOpen={setOpenSnackbar}
+            message={postError ? postError : 'New category created'}
+            severity={postError ? 'error' : 'success'}
+            resetState={resetState}
+          />
+        </>
+      )}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           flexWrap: 'wrap',
-          pt: 4,
         }}
       >
         {categories &&

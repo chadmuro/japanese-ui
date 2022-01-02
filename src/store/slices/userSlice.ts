@@ -20,7 +20,7 @@ export const signup = createAsyncThunk<
   { rejectValue: { message: string } }
 >('user/signup', async (params, thunkApi) => {
   try {
-    const response = await axios.post('/user', params);
+    const response = await axios.post('/user/signup', params);
     return response.data as UserResponse;
   } catch (err: any) {
     console.log(err);
@@ -56,7 +56,25 @@ export const login = createAsyncThunk<
   }
 });
 
-export const checkLoginState = createAction('user/checkLoginState');
+export const checkAuth = createAsyncThunk<
+  UserResponse,
+  void,
+  { rejectValue: { message: string } }
+>('user/check', async (_, thunkApi) => {
+  try {
+    const response = await axios.post('/user/check');
+    return response.data as UserResponse;
+  } catch (err: any) {
+    if (err.response) {
+      return thunkApi.rejectWithValue({
+        message: err.response.data.message,
+      });
+    }
+    return thunkApi.rejectWithValue({
+      message: err.message,
+    });
+  }
+});
 
 export const logout = createAction('user/logout');
 
@@ -115,6 +133,25 @@ export const userSlice = createSlice({
         };
       })
       .addCase(login.rejected, (state, { payload }) => {
+        state.posting = false;
+        if (payload) {
+          state.postError = payload.message;
+        }
+      })
+      .addCase(checkAuth.pending, state => {
+        state.posting = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, { payload }) => {
+        state.posting = false;
+        state.posted = true;
+        localStorage.setItem('accessToken', payload.accessToken);
+        state.user = {
+          _id: payload._id,
+          username: payload.username,
+          role: payload.role,
+        };
+      })
+      .addCase(checkAuth.rejected, (state, { payload }) => {
         state.posting = false;
         if (payload) {
           state.postError = payload.message;

@@ -18,7 +18,7 @@ const CategoryDetails = () => {
   const { category, fetching, fetchError } = useAppSelector(
     state => state.category
   );
-  const { user } = useAppSelector(state => state.user);
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     dispatch(getCategory({ id }));
@@ -26,7 +26,7 @@ const CategoryDetails = () => {
 
   console.log(fetching, fetchError);
 
-  if (!user) {
+  if (!accessToken) {
     return <Redirect to="/login" />;
   }
 

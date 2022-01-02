@@ -11,7 +11,8 @@ export const FormWrapper = ({ children, onSubmit }: FormWrapperProps) => {
       component="form"
       onSubmit={onSubmit}
       sx={{
-        py: 0,
+        pt: 0,
+        pb: 4,
         px: 2,
         display: 'flex',
         flexDirection: 'column',

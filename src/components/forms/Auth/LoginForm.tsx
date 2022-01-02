@@ -98,7 +98,7 @@ const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
           {page === 'login' ? 'Login' : 'Sign up'}
         </Button>
       </FormWrapper>
-      <Typography component="p" variant="body2" sx={{ mt: 3 }}>
+      <Typography component="p" variant="body2">
         {page === 'login'
           ? "Don't have an account?"
           : 'Already have an account?'}

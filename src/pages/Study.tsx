@@ -1,12 +1,11 @@
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import { Title } from '../components/Layout/Title';
-import { useAppSelector } from '../store/hooks';
 
 const Study = () => {
-  const { user } = useAppSelector(state => state.user);
+  const accessToken = localStorage.getItem('accessToken');
 
-  if (!user) {
+  if (!accessToken) {
     return <Redirect to="/login" />;
   }
 

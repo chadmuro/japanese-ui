@@ -30,6 +30,7 @@ const Vocabulary = () => {
     state => state.category
   );
   const { user } = useAppSelector(state => state.user);
+  const accessToken = localStorage.getItem('accessToken');
 
   const resetState = () => dispatch(resetVocabularyState());
 
@@ -52,14 +53,14 @@ const Vocabulary = () => {
 
   console.log(fetchError);
 
-  if (!user) {
+  if (!accessToken) {
     return <Redirect to="/login" />;
   }
 
   return (
     <Layout>
       <Title label="Vocabulary" />
-      {editForm ? (
+      {editForm && user?.role === 'admin' ? (
         <EditVocabularyForm
           categories={categories}
           fetchingCategories={fetchingCategories}
@@ -69,30 +70,33 @@ const Vocabulary = () => {
       ) : (
         <VocabDetails vocabulary={vocabulary} fetching={fetching} />
       )}
-
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          px: 4,
-          mt: 1,
-        }}
-      >
-        <IconButton
-          sx={{ color: 'text.primary' }}
-          onClick={() => setEditForm(!editForm)}
-        >
-          <EditIcon />
-        </IconButton>
-      </Box>
-      <AlertSnackbar
-        open={openSnackbar}
-        setOpen={setOpenSnackbar}
-        message={postError ? postError : 'Vocabulary updated'}
-        severity={postError ? 'error' : 'success'}
-        resetState={resetState}
-      />
+      {user?.role === 'admin' && (
+        <>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              px: 4,
+              mt: 1,
+            }}
+          >
+            <IconButton
+              sx={{ color: 'text.primary' }}
+              onClick={() => setEditForm(!editForm)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <AlertSnackbar
+            open={openSnackbar}
+            setOpen={setOpenSnackbar}
+            message={postError ? postError : 'Vocabulary updated'}
+            severity={postError ? 'error' : 'success'}
+            resetState={resetState}
+          />
+        </>
+      )}
     </Layout>
   );
 };
