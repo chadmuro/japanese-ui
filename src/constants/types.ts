@@ -2,6 +2,7 @@ export type Category = {
   _id: string;
   name: string;
   vocabularies: Vocabulary[];
+  totalVocabularyCount: number;
 };
 
 export type Vocabulary = {

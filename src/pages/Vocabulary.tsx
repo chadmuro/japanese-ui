@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import {
@@ -13,7 +14,7 @@ import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 import VocabButton from '../components/UI/VocabButton';
 import { Title } from '../components/Layout/Title';
 import { PaginationRounded } from '../components/UI/Pagination';
-import VocabButtonSkeleton from '../components/UI/VocabButtonSkeleton';
+import { VocabButtonSkeleton } from '../components/UI/VocabButtonSkeleton';
 
 const Vocabulary = () => {
   const dispatch = useAppDispatch();
@@ -71,21 +72,15 @@ const Vocabulary = () => {
   let mainContent: React.ReactNode;
   if (fetching) {
     mainContent = <VocabButtonSkeleton />;
+  } else if (!fetching && vocabularies.length === 0) {
+    mainContent = <Typography>No vocabularies found</Typography>;
   } else {
     mainContent = (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          mb: 2,
-        }}
-      >
-        {vocabularies &&
-          vocabularies.map(vocabulary => (
-            <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
-          ))}
-      </Box>
+      <>
+        {vocabularies.map(vocabulary => (
+          <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
+        ))}
+      </>
     );
   }
 
@@ -109,7 +104,16 @@ const Vocabulary = () => {
           />
         </>
       )}
-      {mainContent}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          mb: 2,
+        }}
+      >
+        {mainContent}
+      </Box>
       <PaginationRounded
         totalCount={totalCount}
         updatePage={handlePageChange}

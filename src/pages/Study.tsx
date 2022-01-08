@@ -12,7 +12,7 @@ const Study = () => {
   return (
     <Layout>
       <Title label="Study" />
-      Study me
+      Coming soon...
     </Layout>
   );
 };

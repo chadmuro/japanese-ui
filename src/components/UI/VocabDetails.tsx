@@ -12,6 +12,7 @@ interface VocabDetailsProps {
 
 const VocabDetails = ({ vocabulary, fetching }: VocabDetailsProps) => {
   const history = useHistory();
+  const fiveItems = Array.from(Array(5).keys());
 
   const handleChipClick = (id: string) => {
     history.push(`/category/${id}`);
@@ -54,12 +55,12 @@ const VocabDetails = ({ vocabulary, fetching }: VocabDetailsProps) => {
         }}
       >
         {fetching
-          ? [...Array(5)].map((i: any, index: number) => (
+          ? fiveItems.map(item => (
               <Skeleton
-                key={index}
+                key={item}
                 variant="rectangular"
                 width={50}
-                height={20}
+                height={32}
                 sx={{ borderRadius: 4, mx: 1, my: 0.5, px: 0.5 }}
               />
             ))

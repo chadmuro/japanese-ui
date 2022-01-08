@@ -24,17 +24,17 @@ export const getCategories = createAsyncThunk<
 
 type GetCategoryProps = {
   id: string;
+  page: number;
 };
 
 export const getCategory = createAsyncThunk<
-  Category,
+  { category: Category; totalCount: number },
   GetCategoryProps,
   { rejectValue: { message: string } }
 >('category/getOne', async (params, thunkApi) => {
   try {
-    const response: { data: Category } = await axios.get(
-      `/category/${params.id}`
-    );
+    const response: { data: { category: Category; totalCount: number } } =
+      await axios.get(`/category/${params.id}?page=${params.page}&limit=10`);
     return response.data;
   } catch (err: any) {
     if (err.response) {
@@ -87,6 +87,7 @@ interface CategoryState {
   fetching: boolean;
   fetchError: string | null;
   categories: Category[];
+  totalCount: number;
   category: Category | null;
   posting: boolean;
   posted: boolean;
@@ -97,6 +98,7 @@ const initialState = {
   fetching: false,
   fetchError: null,
   categories: [],
+  totalCount: 0,
   category: null,
   posting: false,
   posted: false,
@@ -128,7 +130,8 @@ export const categorySlice = createSlice({
       })
       .addCase(getCategory.fulfilled, (state, { payload }) => {
         state.fetching = false;
-        state.category = payload;
+        state.category = payload.category;
+        state.totalCount = payload.totalCount;
       })
       .addCase(getCategory.rejected, (state, { payload }) => {
         state.fetching = false;
