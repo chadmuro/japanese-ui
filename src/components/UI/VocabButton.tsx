@@ -15,7 +15,7 @@ const VocabButton = ({ vocabulary }: VocabButtonProps) => {
       style={{ textDecoration: 'none' }}
     >
       <Button variant="contained" color="primary" sx={{ mb: 2, mx: 1 }}>
-        <Box pr={4}>
+        <Box pr={2} display="flex" flexDirection="column" flex="none">
           <Typography variant="caption">{vocabulary.reading}</Typography>
           <Typography variant="h6">{vocabulary.japanese}</Typography>
         </Box>

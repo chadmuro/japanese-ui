@@ -12,12 +12,21 @@ import CreateVocabularyForm from '../components/forms/Vocabulary/CreateVocabular
 import { AlertSnackbar } from '../components/UI/AlertSnackbar';
 import VocabButton from '../components/UI/VocabButton';
 import { Title } from '../components/Layout/Title';
+import { PaginationRounded } from '../components/UI/Pagination';
+import VocabButtonSkeleton from '../components/UI/VocabButtonSkeleton';
 
 const Vocabulary = () => {
   const dispatch = useAppDispatch();
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { vocabularies, fetching, fetchError, posting, posted, postError } =
-    useAppSelector(state => state.vocabulary);
+  const {
+    vocabularies,
+    totalCount,
+    fetching,
+    fetchError,
+    posting,
+    posted,
+    postError,
+  } = useAppSelector(state => state.vocabulary);
   const { categories, fetching: fetchingCategories } = useAppSelector(
     state => state.category
   );
@@ -26,19 +35,28 @@ const Vocabulary = () => {
 
   const resetState = () => dispatch(resetVocabularyState());
 
-  console.log(fetching, fetchError);
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    dispatch(getVocabularies(page));
+  };
+
+  console.log(fetchError);
 
   useEffect(() => {
-    dispatch(getVocabularies());
+    dispatch(getVocabularies(1));
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    if (user?.role === 'admin') {
+      dispatch(getCategories());
+    }
+  }, [dispatch, user?.role]);
 
   useEffect(() => {
     if (posted) {
-      dispatch(getVocabularies());
+      dispatch(getVocabularies(1));
     }
     if (posted || postError) {
       setOpenSnackbar(true);
@@ -48,6 +66,27 @@ const Vocabulary = () => {
 
   if (!accessToken) {
     return <Redirect to="/login" />;
+  }
+
+  let mainContent: React.ReactNode;
+  if (fetching) {
+    mainContent = <VocabButtonSkeleton />;
+  } else {
+    mainContent = (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          mb: 2,
+        }}
+      >
+        {vocabularies &&
+          vocabularies.map(vocabulary => (
+            <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
+          ))}
+      </Box>
+    );
   }
 
   return (
@@ -70,18 +109,11 @@ const Vocabulary = () => {
           />
         </>
       )}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        {vocabularies &&
-          vocabularies.map(vocabulary => (
-            <VocabButton key={vocabulary._id} vocabulary={vocabulary} />
-          ))}
-      </Box>
+      {mainContent}
+      <PaginationRounded
+        totalCount={totalCount}
+        updatePage={handlePageChange}
+      />
     </Layout>
   );
 };

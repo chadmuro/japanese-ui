@@ -3,12 +3,13 @@ import axios from 'axios';
 import { Vocabulary } from '../../constants/types';
 
 export const getVocabularies = createAsyncThunk<
-  Vocabulary[],
-  void,
+  { results: Vocabulary[]; totalCount: number },
+  number,
   { rejectValue: { message: string } }
->('vocabulary/get', async (_, thunkApi) => {
+>('vocabulary/get', async (page, thunkApi) => {
   try {
-    const response: { data: Vocabulary[] } = await axios.get('/vocabulary');
+    const response: { data: { results: Vocabulary[]; totalCount: number } } =
+      await axios.get(`/vocabulary?page=${page}&limit=10`);
     return response.data;
   } catch (err: any) {
     if (err.response) {
@@ -121,6 +122,7 @@ interface VocabularyState {
   fetching: boolean;
   fetchError: string | null;
   vocabularies: Vocabulary[];
+  totalCount: number;
   vocabulary: Vocabulary | null;
   posting: boolean;
   posted: boolean;
@@ -131,6 +133,7 @@ const initialState = {
   fetching: false,
   fetchError: null,
   vocabularies: [],
+  totalCount: 0,
   vocabulary: null,
   posting: false,
   posted: false,
@@ -148,7 +151,8 @@ export const vocabularySlice = createSlice({
       })
       .addCase(getVocabularies.fulfilled, (state, { payload }) => {
         state.fetching = false;
-        state.vocabularies = payload;
+        state.vocabularies = payload.results;
+        state.totalCount = payload.totalCount;
       })
       .addCase(getVocabularies.rejected, (state, { payload }) => {
         state.fetching = false;
