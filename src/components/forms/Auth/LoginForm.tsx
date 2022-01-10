@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -20,7 +21,7 @@ interface LoginFormProps {
 
 const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       username: '',
       password: '',
@@ -35,6 +36,10 @@ const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
       dispatch(signup(data));
     }
   };
+
+  useEffect(() => {
+    reset();
+  }, [reset, page]);
 
   return (
     <>
@@ -68,7 +73,13 @@ const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
               sx={{ mb: 1 }}
             />
           )}
-          rules={{ required: 'Username is required' }}
+          rules={{
+            required: 'Username is required',
+            minLength: {
+              value: 6,
+              message: 'Username must be at least 6 characters',
+            },
+          }}
         />
         <Controller
           name="password"
@@ -86,7 +97,13 @@ const LoginForm = ({ page, setPage, posting }: LoginFormProps) => {
               sx={{ mb: 1 }}
             />
           )}
-          rules={{ required: 'Password is required' }}
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Password must be at least 6 characters',
+            },
+          }}
         />
         <Button
           fullWidth

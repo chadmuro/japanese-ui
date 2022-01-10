@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
@@ -52,25 +53,36 @@ const Vocabulary = () => {
     }
   }, [posted, postError, dispatch]);
 
-  console.log(fetchError);
-
   if (!accessToken) {
     return <Redirect to="/login" />;
+  }
+
+  let mainContent: React.ReactNode;
+  if (fetchError) {
+    mainContent = <Typography>{fetchError}</Typography>;
+  } else if (!fetching && !vocabulary) {
+    mainContent = <Typography>No vocabulary found</Typography>;
+  } else {
+    mainContent = (
+      <>
+        {editForm && user?.role === 'admin' ? (
+          <EditVocabularyForm
+            categories={categories}
+            fetchingCategories={fetchingCategories}
+            posting={posting}
+            vocabulary={vocabulary}
+          />
+        ) : (
+          <VocabDetails vocabulary={vocabulary} fetching={fetching} />
+        )}
+      </>
+    );
   }
 
   return (
     <Layout>
       <Title label="Vocabulary" />
-      {editForm && user?.role === 'admin' ? (
-        <EditVocabularyForm
-          categories={categories}
-          fetchingCategories={fetchingCategories}
-          posting={posting}
-          vocabulary={vocabulary}
-        />
-      ) : (
-        <VocabDetails vocabulary={vocabulary} fetching={fetching} />
-      )}
+      {mainContent}
       {user?.role === 'admin' && (
         <>
           <Box

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import Layout from '../components/Layout/Layout';
 import {
@@ -23,8 +25,6 @@ const Category = () => {
 
   const resetState = () => dispatch(resetCategoryState());
 
-  console.log(fetching, fetchError);
-
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
@@ -45,6 +45,43 @@ const Category = () => {
 
   if (!accessToken) {
     return <Redirect to="/login" />;
+  }
+
+  const tenItems = Array.from(Array(10).keys());
+
+  let mainContent: React.ReactNode;
+  if (fetching) {
+    mainContent = (
+      <>
+        {tenItems.map(item => (
+          <Skeleton
+            key={item}
+            variant="rectangular"
+            width={50}
+            height={32}
+            sx={{ borderRadius: 4, mx: 1, my: 0.5 }}
+          />
+        ))}
+      </>
+    );
+  } else if (fetchError) {
+    mainContent = <Typography>{fetchError}</Typography>;
+  } else if (!fetching && categories.length === 0) {
+    mainContent = <Typography>No categories found</Typography>;
+  } else {
+    mainContent = (
+      <>
+        {categories &&
+          categories.map(category => (
+            <CategoryChip
+              key={category._id}
+              color="secondary"
+              label={category.name}
+              onClick={() => handleChipClick(category._id)}
+            />
+          ))}
+      </>
+    );
   }
 
   return (
@@ -69,15 +106,7 @@ const Category = () => {
           flexWrap: 'wrap',
         }}
       >
-        {categories &&
-          categories.map(category => (
-            <CategoryChip
-              key={category._id}
-              color="secondary"
-              label={category.name}
-              onClick={() => handleChipClick(category._id)}
-            />
-          ))}
+        {mainContent}
       </Box>
     </Layout>
   );

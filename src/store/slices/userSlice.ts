@@ -23,7 +23,6 @@ export const signup = createAsyncThunk<
     const response = await axios.post('/user/signup', params);
     return response.data as UserResponse;
   } catch (err: any) {
-    console.log(err);
     if (err.response) {
       return thunkApi.rejectWithValue({
         message: err.response.data.message,
@@ -44,7 +43,6 @@ export const login = createAsyncThunk<
     const response = await axios.post('/user/login', params);
     return response.data as UserResponse;
   } catch (err: any) {
-    console.log(err);
     if (err.response) {
       return thunkApi.rejectWithValue({
         message: err.response.data.message,

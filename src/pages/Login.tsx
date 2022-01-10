@@ -14,8 +14,6 @@ const Login = () => {
   const { posting, posted, postError } = useAppSelector(state => state.user);
   const resetState = () => dispatch(resetUserState());
 
-  console.log(postError);
-
   useEffect(() => {
     if (posted) {
       dispatch(resetUserState());

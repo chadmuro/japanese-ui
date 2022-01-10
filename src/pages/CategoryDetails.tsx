@@ -35,8 +35,6 @@ const CategoryDetails = () => {
     dispatch(getCategory({ id, page: 1 }));
   }, [dispatch, id]);
 
-  console.log(category, fetchError);
-
   if (!accessToken) {
     return <Redirect to="/login" />;
   }
@@ -44,6 +42,8 @@ const CategoryDetails = () => {
   let mainContent: React.ReactNode;
   if (fetching) {
     mainContent = <VocabButtonSkeleton />;
+  } else if (fetchError) {
+    mainContent = <Typography>{fetchError}</Typography>;
   } else if (!fetching && category?.vocabularies.length === 0) {
     mainContent = <Typography>No vocabularies found</Typography>;
   } else {

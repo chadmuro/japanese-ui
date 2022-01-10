@@ -43,8 +43,6 @@ const Vocabulary = () => {
     dispatch(getVocabularies(page));
   };
 
-  console.log(fetchError);
-
   useEffect(() => {
     dispatch(getVocabularies(1));
   }, [dispatch]);
@@ -72,6 +70,8 @@ const Vocabulary = () => {
   let mainContent: React.ReactNode;
   if (fetching) {
     mainContent = <VocabButtonSkeleton />;
+  } else if (fetchError) {
+    mainContent = <Typography>{fetchError}</Typography>;
   } else if (!fetching && vocabularies.length === 0) {
     mainContent = <Typography>No vocabularies found</Typography>;
   } else {
